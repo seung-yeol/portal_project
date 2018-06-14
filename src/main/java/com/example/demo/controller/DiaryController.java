@@ -19,8 +19,19 @@ public class DiaryController {
     private final DiaryRepository diaryRepository;
 
     @PostMapping("/create")
-    public DiaryVO createDiary(@RequestBody DiaryVO diaryVO) {
-        return diaryRepository.save(diaryVO);
+    public String createDiary(@RequestBody DiaryVO diaryVO) {
+        if (diaryVO.getUserId() == null)
+            return "userId is null";
+        else if (diaryVO.getTitle() == null)
+            return "title is null";
+        else if (diaryVO.getStory() == null)
+            return "story is null";
+        else if (diaryVO.getWriteDate() == null)
+            return "writeDate is null";
+        else {
+            diaryRepository.save(diaryVO);
+            return "true";
+        }
     }
 
     @GetMapping("/read/my/{userId}/{page}")

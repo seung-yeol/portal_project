@@ -24,9 +24,9 @@ public class DiaryTest {
     @Test
     public void createDiary(){
         String userId = "oks153123";
-        String title = "오늘";
+        String title = "모래";
         String story = "아버지가방에들어가신다";
-        String writeDate = "1994-06-26";
+        String writeDate = "1994-06-25";
 
         DiaryVO createDiaryVo = new DiaryVO();
         createDiaryVo.setUserId(userId);
@@ -34,12 +34,9 @@ public class DiaryTest {
         createDiaryVo.setStory(story);
         createDiaryVo.setWriteDate(writeDate);
 
-        DiaryVO diaryVO = restTemplate.postForObject(PATH + "/" + "create", createDiaryVo, DiaryVO.class);
+        String result = restTemplate.postForObject(PATH + "/" + "create", createDiaryVo, String.class);
 
-        assertThat(diaryVO.getUserId(), is(userId));
-        assertThat(diaryVO.getTitle(), is(title));
-        assertThat(diaryVO.getStory(), is(story));
-        assertThat(diaryVO.getWriteDate(), is(writeDate));
+        assertThat(result, is("true"));
     }
 
 //    @Test
