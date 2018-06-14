@@ -20,6 +20,14 @@ public class UserController {
         return userRepository.findById(id).get();
     }
 
+    @GetMapping("/same/{userId}")
+    public String sameCheck(@PathVariable String userId) {
+        if (userRepository.findByUserId(userId) == null) {
+            return "true";
+        }
+        else return "중복되는 아이디가 있습니다";
+    }
+
     @PostMapping("/login")
     public boolean login(@RequestParam String userId, @RequestParam String password) {
         return userRepository.findByUserIdAndPassword(userId, password) != null;

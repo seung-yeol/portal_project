@@ -85,4 +85,13 @@ public class UserTest {
 		assertThat(mBoolean, is(true));
 		assertThat(mBoolean2, is(false));
 	}
+
+	@Test
+	public void sameIdCheck() {
+		String userId = "oks153123";
+
+		String result = restTemplate.getForObject(PATH + "/" + "same/"+userId, String.class);
+
+		assertThat(result, not("true"));
+	}
 }
