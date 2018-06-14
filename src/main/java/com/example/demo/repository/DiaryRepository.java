@@ -17,4 +17,6 @@ public interface DiaryRepository extends JpaRepository<DiaryVO, Integer> {
 
     @Query( value = "select * from diary Order BY RAND() LIMIT 7", nativeQuery = true)
     List<DiaryVO> findByRandom();
+
+    Integer countByUserIdAndWriteDate(@Param("user_id") String userId,@Param("write_date") String writeDate);
 }

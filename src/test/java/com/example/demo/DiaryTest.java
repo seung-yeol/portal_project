@@ -38,4 +38,14 @@ public class DiaryTest {
 
         assertThat(result, is("true"));
     }
+
+    @Test
+    public void writableCheck(){
+        String userId = "oks153123";
+        String writeDate = "2018-06-15";
+
+        String result = restTemplate.getForObject(PATH + "/" + "writeEnableCheck/"+ userId + "/" + writeDate, String.class);
+
+        assertThat(result, not("true"));
+    }
 }

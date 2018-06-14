@@ -45,5 +45,14 @@ public class DiaryController {
     public List<DiaryVO> readRandom(){
         return diaryRepository.findByRandom();
     }
+
+    @GetMapping("/writeEnableCheck/{userId}/{writeDate}")
+    public String writeEnableCheck(@PathVariable String userId, @PathVariable String writeDate){
+        if (diaryRepository.countByUserIdAndWriteDate(userId, writeDate) == 0){
+            return "true";
+        }
+        else return "오늘 일기를 이미 작성하셨습니다.";
+    }
+
 }
 
