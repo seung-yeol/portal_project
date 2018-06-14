@@ -3,12 +3,13 @@ package com.example.demo.controller;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.vo.UserVO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping(value = "/user", consumes = {MediaType.ALL_VALUE, MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 @RequiredArgsConstructor
 public class UserController {
     private final UserRepository userRepository;
@@ -20,13 +21,19 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public UserVO login(@RequestBody UserVO userVO) {
-        return userRepository.findByUserIdAndPassword(userVO.getUserId(), userVO.getPassword());
+    public boolean login(@RequestParam String userId, @RequestParam String password) {
+        return userRepository.findByUserIdAndPassword(userId, password) != null;
     }
 
     @PostMapping("/join_mem")
-    public UserVO joinMembership(@RequestBody UserVO userVO) {
-        return userRepository.save(userVO);
+    public boolean joinMembership(@RequestBody UserVO userVO) {
+        if (userVO.getUserId() == null || userVO.getPassword() == null || userVO.getBirthday() == null ||
+                userVO.getGender() == null || userVO.getPhoneNo() == null || userVO.getName() == null)
+            return false;
+        else {
+            userRepository.save(userVO);
+            return true;
+        }
     }
 
 //    @PostMapping("/login")
