@@ -46,16 +46,6 @@ public class UserController {
 //        return userRepository.findAll();
 //    }
 
-//    @GetMapping("/list")
-//    public Page<UserVO> findExample(@RequestParam String name, @RequestParam String password,
-//                                    @RequestParam Integer page, @RequestParam Integer size) {
-//
-//                                                                    //정렬방법         정렬 타겟
-//        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC, "id");
-//
-//        return userRepository.findAllByNameAndPassword(name, password, pageRequest);
-//    }
-
 //    @PutMapping
 //    public void modify(@RequestBody UserVO userVO) {
 //        userRepository.save(userVO);

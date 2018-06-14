@@ -7,12 +7,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 
 import java.util.List;
 
 public interface DiaryRepository extends JpaRepository<DiaryVO, Integer> {
-    Page<DiaryVO> findAllByUserId(String userId, Pageable pageable);
+    Page<DiaryVO> findAllByUserId(@Param("user_id") String userId, Pageable pageable);
 
     @Query( value = "select * from diary Order BY RAND() LIMIT 7", nativeQuery = true)
     List<DiaryVO> findByRandom();

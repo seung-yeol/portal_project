@@ -38,16 +38,4 @@ public class DiaryTest {
 
         assertThat(result, is("true"));
     }
-
-//    @Test
-//    public void readDiary(){
-//        String userId = "oks153123";
-//
-//        Page<DiaryVO> diaryVOPage = restTemplate.getForObject(PATH + "/" + "read/my/" + userId+"/"+"0", Page.class);
-//        List<DiaryVO> vos =  diaryVOPage.getContent();
-//
-//        assertThat( vos.get(0).getUserId() , is(userId) );
-//        assertThat( vos.get(0).getTitle() , notNullValue());
-//        assertThat( vos.get(0).getStory() , notNullValue());
-//    }
 }
