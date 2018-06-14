@@ -17,16 +17,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DiaryController {
     private final DiaryRepository diaryRepository;
-    private final UserRepository userRepository;
 
     @PostMapping("/create")
     public DiaryVO createDiary(@RequestBody DiaryVO diaryVO) {
         return diaryRepository.save(diaryVO);
     }
 
-    @GetMapping("/read/my")
-    public Page<DiaryVO> readAll(@RequestParam String userId, @RequestParam Integer page, @RequestParam Integer size) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC, "writeDate");
+    @GetMapping("/read/my/{userId}/{page}")
+    public Page<DiaryVO> readAll(@PathVariable String userId, @PathVariable Integer page) {
+        PageRequest pageRequest = PageRequest.of(page, 10, Sort.Direction.ASC, "writeDate");
 
         return diaryRepository.findAllByUserId(userId, pageRequest);
     }
@@ -36,3 +35,4 @@ public class DiaryController {
         return diaryRepository.findByRandom();
     }
 }
+
