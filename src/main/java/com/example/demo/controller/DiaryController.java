@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -42,16 +43,38 @@ public class DiaryController {
     }
 
     @GetMapping("/read/random")
-    public List<DiaryVO> readRandom(){
+    public List<DiaryVO> readRandom() {
         return diaryRepository.findByRandom();
     }
 
     @GetMapping("/writeEnableCheck/{userId}/{writeDate}")
-    public String writeEnableCheck(@PathVariable String userId, @PathVariable String writeDate){
-        if (diaryRepository.countByUserIdAndWriteDate(userId, writeDate) == 0){
+    public String writeEnableCheck(@PathVariable String userId, @PathVariable String writeDate) {
+        if (diaryRepository.countByUserIdAndWriteDate(userId, writeDate) == 0) {
             return "true";
+        } else return "오늘 일기를 이미 작성하셨습니다.";
+    }
+
+    @GetMapping("/read/{ids}")
+    public List<DiaryVO> readByIds(@PathVariable String ids) {
+        System.out.println(""+ids);
+        String[] splitIds = ids.split("z");
+
+        List<DiaryVO> diaryVOS = new LinkedList<>();
+
+        for (int i = 0; i < splitIds.length; i++) {
+            System.out.println(splitIds[i]);
+            DiaryVO vo = diaryRepository.findById(Integer.parseInt(splitIds[i])).get();
+
+            System.out.println(vo.getTitle());
+            diaryVOS.add(vo);
         }
-        else return "오늘 일기를 이미 작성하셨습니다.";
+
+//        for (String splitId : splitIds) {
+//            System.out.println(splitId);
+//
+//        }
+
+        return diaryVOS;
     }
 
 }
